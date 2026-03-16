@@ -574,14 +574,12 @@ function sendEmail(btn){
     btn.textContent='✓ Message Sent!';btn.style.background='linear-gradient(135deg,#00b894,#00cec9)';
     ['fName','fEmail','fSubject','fMsg'].forEach(id=>{document.getElementById(id).value=''});
     setTimeout(()=>{btn.textContent='Send Message →';btn.disabled=false;btn.style.background=''},3500);
-  }).catch(()=>{
+  }).catch((error)=>{
+    console.log('EmailJS Error:', JSON.stringify(error));
+    alert('Error: ' + JSON.stringify(error));
     btn.disabled=false;
-    /* Fallback: open Gmail compose directly */
-    window.location.href='mailto:muhammadaizazullah456@gmail.com'
-      +'?subject='+encodeURIComponent(subject)
-      +'&body='+encodeURIComponent('From: '+name+' ('+email+')\n\n'+message);
-    setTimeout(()=>{btn.textContent='Send Message →';btn.style.background=''},300);
-  });
+    btn.textContent='Send Message →';
+});
 }
 </script>
 </body>
