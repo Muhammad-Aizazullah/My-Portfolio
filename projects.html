@@ -344,7 +344,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:1.8rem cl
    3. Create template using: {{from_name}} {{from_email}} {{subject}} {{message}}
    4. Replace the 3 placeholders below with your actual keys
 ──────────────────────────────────────────────────────── */
-emailjs.init('YOUR_PUBLIC_KEY');
+emailjs.init('UjJtEQuM75DZLKq6f'); // ← replace
 
 /* CURSOR */
 const c=document.getElementById('cur'),c2=document.getElementById('cur2');
@@ -422,7 +422,7 @@ function submitForm(btn){
   const message=document.getElementById('cMsg').value.trim();
   if(!name||!email||!message){alert('Please fill in Name, Email, and Message.');return;}
   btn.textContent='Sending...';btn.disabled=true;
-  emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{
+  emailjs.send('service_65oc73v','template_siui1ad',{
     from_name:name,from_email:email,subject:subject,message:message,
     to_email:'muhammadaizazullah456@gmail.com'
   }).then(()=>{
