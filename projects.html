@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>All Projects — Aizazullah Baloch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#080810;--bg2:#0f0f1a;--card:#121220;--card2:#1a1a2e;
+  --accent:#6c5ce7;--accent2:#00cec9;--accent3:#fd79a8;--gold:#fdcb6e;
+  --text:#eeeef5;--muted:#7b7b9d;
+  --border:rgba(255,255,255,0.07);--border2:rgba(108,92,231,0.3);
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.35}
+canvas#stars{position:fixed;top:0;left:0;z-index:0;pointer-events:none}
+
+/* CURSOR */
+#cur{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+#cur2{position:fixed;width:36px;height:36px;border:1.5px solid rgba(108,92,231,.55);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease}
+body:has(a:hover) #cur,body:has(button:hover) #cur{width:18px;height:18px;background:var(--accent2)}
+body:has(a:hover) #cur2,body:has(button:hover) #cur2{width:52px;height:52px;border-color:var(--accent2)}
+@media(pointer:coarse){#cur,#cur2{display:none}body{cursor:auto}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 clamp(1.2rem,4vw,3rem);height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,16,.78);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border)}
+.logo{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:1.25rem;letter-spacing:-.03em;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.4rem}
+.logo-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(108,92,231,.6)}50%{box-shadow:0 0 0 6px rgba(108,92,231,0)}}
+.nav-right{display:flex;align-items:center;gap:.8rem}
+.back-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.52rem 1.25rem;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:100px;font-size:.82rem;font-weight:500;text-decoration:none;transition:all .25s}
+.back-btn:hover{border-color:var(--accent2);color:var(--accent2);transform:translateX(-2px)}
+.nav-cv{display:inline-flex;align-items:center;gap:.45rem;padding:.52rem 1.3rem;background:var(--accent);color:#fff;text-decoration:none;border-radius:100px;font-size:.8rem;font-weight:600;transition:all .25s}
+.nav-cv:hover{background:#8075f0;transform:translateY(-1px);box-shadow:0 8px 24px rgba(108,92,231,.4)}
+
+/* 3D FLOATING ORBS */
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px);opacity:.11;animation:orbFloat linear infinite}
+.orb1{width:500px;height:500px;background:var(--accent);top:-160px;right:-140px;animation-duration:18s}
+.orb2{width:360px;height:360px;background:var(--accent2);bottom:8%;left:-110px;animation-duration:24s;animation-delay:-8s}
+.orb3{width:260px;height:260px;background:var(--accent3);top:42%;right:8%;animation-duration:20s;animation-delay:-5s;opacity:.07}
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}33%{transform:translateY(-28px) scale(1.04)}66%{transform:translateY(16px) scale(.97)}}
+
+/* PAGE HERO */
+.page-hero{padding:calc(64px + 4.5rem) clamp(1.2rem,5vw,4rem) 2.5rem;position:relative;z-index:1;max-width:1180px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.page-eyebrow{display:flex;align-items:center;gap:.75rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.1rem;animation:fadeUp .6s .1s both}
+.page-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--accent)}
+.page-title{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:clamp(3rem,9vw,7rem);letter-spacing:-.05em;line-height:.88;margin-bottom:1.4rem;animation:fadeUp .6s .25s both}
+.page-title em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--accent);font-weight:400}
+.page-sub{color:var(--muted);font-size:clamp(.88rem,1.8vw,1.02rem);font-weight:300;line-height:1.75;max-width:440px;animation:fadeUp .6s .4s both}
+
+/* 3D SPINNING CUBE */
+.hero-3d-obj{flex-shrink:0;animation:fadeUp .8s .6s both}
+@media(max-width:700px){.hero-3d-obj{display:none}}
+.cube-scene{width:130px;height:130px;perspective:500px;display:flex;align-items:center;justify-content:center}
+.cube3d{width:80px;height:80px;position:relative;transform-style:preserve-3d;animation:spinCube 14s linear infinite}
+.cface{position:absolute;width:80px;height:80px;border:1px solid rgba(108,92,231,.4);display:flex;align-items:center;justify-content:center;font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:.7rem;letter-spacing:.1em;color:rgba(108,92,231,.8);background:rgba(108,92,231,.04);backdrop-filter:blur(3px)}
+.cf1{transform:translateZ(40px)}
+.cf2{transform:rotateY(90deg) translateZ(40px)}
+.cf3{transform:rotateY(180deg) translateZ(40px)}
+.cf4{transform:rotateY(-90deg) translateZ(40px)}
+.cf5{transform:rotateX(90deg) translateZ(40px)}
+.cf6{transform:rotateX(-90deg) translateZ(40px)}
+@keyframes spinCube{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
+
+/* FILTER TABS */
+.filter-row{display:flex;gap:.6rem;flex-wrap:wrap;padding:0 clamp(1.2rem,5vw,4rem);max-width:1180px;margin:2rem auto 1.8rem;animation:fadeUp .6s .5s both;position:relative;z-index:1}
+.ftab{padding:.46rem 1.1rem;border-radius:100px;font-size:.8rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .25s;font-family:'DM Sans',sans-serif}
+.ftab:hover{border-color:var(--border2);color:var(--text)}
+.ftab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* 3D TILT CARDS */
+.all-projects{padding:0 clamp(1.2rem,5vw,4rem) clamp(4rem,8vw,6rem);max-width:1180px;margin:0 auto;position:relative;z-index:1}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(270px,30vw,340px),1fr));gap:clamp(1rem,2vw,1.4rem)}
+.card-scene{perspective:900px}
+.proj-card{
+  background:var(--card);border:1px solid var(--border);border-radius:22px;
+  padding:clamp(1.4rem,3vw,2rem);
+  transition:box-shadow .4s,border-color .4s,background .4s,opacity .6s,transform .6s;
+  cursor:default;position:relative;overflow:hidden;display:flex;flex-direction:column;
+  opacity:0;transform:translateY(28px);transform-style:preserve-3d;will-change:transform;
+}
+.proj-card.in{opacity:1;transform:translateY(0)}
+.proj-card.hidden{display:none!important}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--accent),transparent);opacity:0;transition:opacity .4s}
+.proj-card:hover{box-shadow:0 24px 60px rgba(108,92,231,.18),0 0 0 1px rgba(108,92,231,.25);background:var(--card2);border-color:rgba(108,92,231,.35)}
+.proj-card:hover::before{opacity:1}
+.card-shine{position:absolute;inset:0;border-radius:22px;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(108,92,231,.09) 0%,transparent 65%);pointer-events:none;opacity:0;transition:opacity .3s}
+.proj-card:hover .card-shine{opacity:1}
+.proj-card:hover .pc-arrow{transform:translate(3px,-3px);color:var(--accent2)}
+.pc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.1rem}
+.pc-num{font-family:'Cabinet Grotesk',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.2em;color:var(--accent);padding:.22rem .68rem;background:rgba(108,92,231,.1);border:1px solid rgba(108,92,231,.2);border-radius:100px}
+.pc-arrow{font-size:1.05rem;color:var(--muted);transition:transform .3s,color .3s}
+.pc-cat{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem}
+.pc-title{font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:clamp(1rem,1.8vw,1.2rem);letter-spacing:-.03em;margin-bottom:.6rem;line-height:1.2}
+.pc-desc{color:var(--muted);font-size:.852rem;line-height:1.72;font-weight:300;flex:1;margin-bottom:1.1rem}
+.pc-stack{display:flex;flex-wrap:wrap;gap:.4rem}
+.stag{padding:.24rem .68rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:100px;font-size:.7rem;color:var(--muted);transition:all .25s}
+.proj-card:hover .stag{border-color:rgba(108,92,231,.2);color:var(--accent2)}
+.feat-badge{position:absolute;top:1.1rem;right:1.1rem;padding:.2rem .6rem;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:.62rem;font-weight:700;border-radius:100px;letter-spacing:.06em;text-transform:uppercase;z-index:2}
+
+/* CONTACT SECTION */
+.contact-wrap{background:var(--bg2);position:relative;z-index:1;overflow:hidden}
+.contact-wrap::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(108,92,231,.07),transparent 70%);pointer-events:none}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:start;padding:clamp(4rem,8vw,6rem) clamp(1.2rem,5vw,4rem);max-width:1180px;margin:0 auto;position:relative}
+@media(max-width:768px){.contact-inner{grid-template-columns:1fr}}
+.contact-eyebrow{display:flex;align-items:center;gap:.75rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.contact-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--accent)}
+.contact-heading{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:clamp(2.2rem,5vw,3.8rem);letter-spacing:-.05em;line-height:.95;margin-bottom:1.2rem;color:var(--text)}
+.contact-heading span{color:var(--accent)}
+.contact-sub{color:var(--muted);line-height:1.75;font-size:.93rem;font-weight:300;margin-bottom:1.8rem}
+.contact-links{display:flex;flex-direction:column;gap:.75rem}
+.contact-link{display:flex;align-items:center;gap:.9rem;padding:.85rem 1.1rem;background:var(--card);border:1px solid var(--border);border-radius:14px;text-decoration:none;color:var(--text);transition:all .25s;font-size:.87rem}
+.contact-link:hover{border-color:var(--border2);background:var(--card2);transform:translateX(4px)}
+.cl-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.cl-gh{background:rgba(255,255,255,.07)}.cl-li{background:rgba(0,119,181,.15)}.cl-em{background:rgba(253,121,168,.12)}
+.cl-label{font-size:.72rem;color:var(--muted);display:block;margin-bottom:.1rem;text-transform:uppercase;letter-spacing:.06em}
+.contact-form-box{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:clamp(1.5rem,3vw,2.4rem)}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:.9rem}
+@media(max-width:480px){.cf-row{grid-template-columns:1fr}}
+.cf-group{display:flex;flex-direction:column;gap:.38rem;margin-bottom:.9rem}
+.cf-group label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.cf-group input,.cf-group textarea{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:.82rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border .2s,box-shadow .2s;width:100%}
+.cf-group input:focus,.cf-group textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,92,231,.1)}
+.cf-group textarea{resize:vertical;min-height:110px}
+.cf-group input::placeholder,.cf-group textarea::placeholder{color:rgba(123,123,157,.45)}
+.submit-btn{width:100%;padding:1rem;background:linear-gradient(135deg,var(--accent),#8075f0);color:#fff;border:none;border-radius:12px;font-size:.93rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .3s;letter-spacing:.03em}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(108,92,231,.4)}
+.submit-btn:active{transform:scale(.98)}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:1.8rem clamp(1.2rem,5vw,4rem);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;position:relative;z-index:1}
+.footer-brand{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:-.03em}
+.footer-copy{color:var(--muted);font-size:.78rem}
+.footer-right{display:flex;gap:1.5rem}
+.footer-right a{color:var(--muted);font-size:.8rem;text-decoration:none;transition:color .2s}
+.footer-right a:hover{color:var(--accent2)}
+@media(max-width:580px){footer{flex-direction:column;text-align:center}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur2"></div>
+<canvas id="stars"></canvas>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo"><span class="logo-dot"></span>AB</a>
+  <div class="nav-right">
+    <a href="index.html" class="back-btn">← Portfolio</a>
+    <a href="cv.pdf" download class="nav-cv">↓ Download CV</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div>
+    <div class="page-eyebrow">Complete Work</div>
+    <h1 class="page-title">All<br><em>Projects.</em></h1>
+    <p class="page-sub">Everything I've built — web apps, AI tools, backend systems &amp; C++ projects. Hover cards for 3D effect.</p>
+  </div>
+  <div class="hero-3d-obj">
+    <div class="cube-scene">
+      <div class="cube3d">
+        <div class="cface cf1">WEB</div>
+        <div class="cface cf2">C++</div>
+        <div class="cface cf3">AI</div>
+        <div class="cface cf4">SQL</div>
+        <div class="cface cf5">JS</div>
+        <div class="cface cf6">PY</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-row">
+  <button class="ftab active" data-filter="all">All</button>
+  <button class="ftab" data-filter="web">Web</button>
+  <button class="ftab" data-filter="backend">Backend</button>
+  <button class="ftab" data-filter="cpp">C++</button>
+  <button class="ftab" data-filter="ai">AI</button>
+</div>
+
+<!-- PROJECTS GRID -->
+<div class="all-projects">
+  <div class="proj-grid" id="projGrid">
+
+    <div class="card-scene"><div class="proj-card" data-cat="web backend">
+      <div class="card-shine"></div>
+      <div class="feat-badge">Featured</div>
+      <div class="pc-head"><span class="pc-num">01</span><span class="pc-arrow">↗</span></div>
+      <div class="pc-cat">Web · Backend</div>
+      <div class="pc-title">GPA Calculator Website</div>
+      <p class="pc-desc">Multilingual GPA calculator with Goal GPA planner, semester history tracking, and JSON-based i18n across multiple pages. SQLite backend with full user history.</p>
+      <div class="pc-stack"><span class="stag">HTML</span><span class="stag">CSS</span><span class="stag">JavaScript</span><span class="stag">Flask</span><span class="stag">SQLite</span></div>
+    </div></div>
+
+    <div class="card-scene"><div class="proj-card" data-cat="web backend">
+      <div class="card-shine"></div>
+      <div class="pc-head"><span class="pc-num">02</span><span class="pc-arrow">↗</span></div>
+      <div class="pc-cat">Web · Backend</div>
+      <div class="pc-title">Unit Converter Website</div>
+      <p class="pc-desc">Full-featured unit converter for energy, length, weight, temperature &amp; more. Deployed live on PythonAnywhere with Flask backend API.</p>
+      <div class="pc-stack"><span class="stag">HTML</span><span class="stag">CSS</span><span class="stag">JS</span><span class="stag">Flask</span><span class="stag">PythonAnywhere</span></div>
+    </div></div>
+
+    <div class="card-scene"><div class="proj-card" data-cat="ai backend">
+      <div class="card-shine"></div>
+      <div class="feat-badge" style="background:linear-gradient(135deg,#fd79a8,#fdcb6e)">AI</div>
+      <div class="pc-head"><span class="pc-num">03</span><span class="pc-arrow">↗</span></div>
+      <div class="pc-cat">AI · Backend</div>
+      <div class="pc-title">AI Tools Platform</div>
+      <p class="pc-desc">Flask platform with summarization, paraphrasing, article rewriting, plagiarism check, AI detection, text humanization &amp; email generator using HuggingFace Transformers.</p>
+      <div class="pc-stack"><span class="stag">Python</span><span class="stag">Flask</span><span class="stag">HuggingFace</span><span class="stag">Transformers</span></div>
+    </div></div>
+
+    <div class="card-scene"><div class="proj-card" data-cat="cpp">
+      <div class="card-shine"></div>
+      <div class="pc-head"><span class="pc-num">04</span><span class="pc-arrow">↗</span></div>
+      <div class="pc-cat">C++ · DSA</div>
+      <div class="pc-title">Google Drive Simulator</div>
+      <p class="pc-desc">C++ file system simulation using Tree, Hash Table, Stack, Queue &amp; Linked List — all in a single file with full CRUD operations.</p>
+      <div class="pc-stack"><span class="stag">C++</span><span class="stag">DSA</span><span class="stag">OOP</span></div>
+    </div></div>
+
+    <div class="card-scene"><div class="proj-card" data-cat="web backend">
+      <div class="card-shine"></div>
+      <div class="pc-head"><span class="pc-num">05</span><span class="pc-arrow">↗</span></div>
+      <div class="pc-cat">Web · Backend</div>
+      <div class="pc-title">Database Banking App</div>
+      <p class="pc-desc">Full-stack banking app with user authentication, account management, deposits, withdrawals &amp; transaction history via Flask + SQL.</p>
+      <div class="pc-stack"><span class="stag">HTML</span><span class="stag">CSS</span><span class="stag">Flask</span><span class="stag">SQL</span></div>
+    </div></div>
+
+    <div class="card-scene"><div class="proj-card" data-cat="cpp">
+      <div class="card-shine"></div>
+      <div class="pc-head"><span class="pc-num">06</span><span class="pc-arrow">↗</span></div>
+      <div class="pc-cat">C++ · Algorithms</div>
+      <div class="pc-title">Boggle Solver</div>
+      <p class="pc-desc">C++ Boggle solver using DFS with 8-directional movement to find all valid dictionary words on any given game board configuration.</p>
+      <div class="pc-stack"><span class="stag">C++</span><span class="stag">DFS</span><span class="stag">Algorithms</span></div>
+    </div></div>
+
+    <div class="card-scene"><div class="proj-card" data-cat="cpp">
+      <div class="card-shine"></div>
+      <div class="pc-head"><span class="pc-num">07</span><span class="pc-arrow">↗</span></div>
+      <div class="pc-cat">C++ · Game</div>
+      <div class="pc-title">Minesweeper</div>
+      <p class="pc-desc">Classic Minesweeper in C++ with grid rendering, random mine placement, flood-fill reveal, and full win/loss detection logic.</p>
+      <div class="pc-stack"><span class="stag">C++</span><span class="stag">OOP</span><span class="stag">Game Logic</span></div>
+    </div></div>
+
+    <div class="card-scene"><div class="proj-card" data-cat="cpp">
+      <div class="card-shine"></div>
+      <div class="pc-head"><span class="pc-num">08</span><span class="pc-arrow">↗</span></div>
+      <div class="pc-cat">C++ · Utility</div>
+      <div class="pc-title">Contact Book</div>
+      <p class="pc-desc">Contact management system in C++ with add, search, delete &amp; display operations using a linked list data structure.</p>
+      <div class="pc-stack"><span class="stag">C++</span><span class="stag">Linked List</span><span class="stag">CRUD</span></div>
+    </div></div>
+
+    <div class="card-scene"><div class="proj-card" data-cat="cpp">
+      <div class="card-shine"></div>
+      <div class="pc-head"><span class="pc-num">09</span><span class="pc-arrow">↗</span></div>
+      <div class="pc-cat">C++ · Game</div>
+      <div class="pc-title">Word Search</div>
+      <p class="pc-desc">Word search puzzle in C++ that generates random grids and finds hidden words across multiple directions.</p>
+      <div class="pc-stack"><span class="stag">C++</span><span class="stag">2D Arrays</span><span class="stag">Search</span></div>
+    </div></div>
+
+    <div class="card-scene"><div class="proj-card" data-cat="web ai">
+      <div class="card-shine"></div>
+      <div class="pc-head"><span class="pc-num">10</span><span class="pc-arrow">↗</span></div>
+      <div class="pc-cat">Web · AI Clone</div>
+      <div class="pc-title">Summary — Summarizer Clone</div>
+      <p class="pc-desc">Full front-end clone of summarizer.org with clean UI and AI-powered text summarization functionality.</p>
+      <div class="pc-stack"><span class="stag">HTML</span><span class="stag">CSS</span><span class="stag">JavaScript</span></div>
+    </div></div>
+
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-wrap">
+  <div class="contact-inner">
+    <div>
+      <div class="contact-eyebrow">Get In Touch</div>
+      <h2 class="contact-heading">Let's work<br><span>together.</span></h2>
+      <p class="contact-sub">Open to internships, freelance projects, and developer/tester roles. Let's build something great!</p>
+      <div class="contact-links">
+        <a href="https://github.com/Muhammad-Aizazullah" target="_blank" class="contact-link">
+          <div class="cl-icon cl-gh">⌨</div>
+          <div><span class="cl-label">GitHub</span>github.com/Muhammad-Aizazullah</div>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammad-aizazullah-748931286/" target="_blank" class="contact-link">
+          <div class="cl-icon cl-li">💼</div>
+          <div><span class="cl-label">LinkedIn</span>linkedin.com/in/muhammad-aizazullah</div>
+        </a>
+        <a href="mailto:muhammadaizazullah456@gmail.com" class="contact-link">
+          <div class="cl-icon cl-em">✉</div>
+          <div><span class="cl-label">Email</span>muhammadaizazullah456@gmail.com</div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form-box">
+      <div class="cf-row">
+        <div class="cf-group"><label>Name</label><input type="text" id="cName" placeholder="Your name"/></div>
+        <div class="cf-group"><label>Email</label><input type="email" id="cEmail" placeholder="your@email.com"/></div>
+      </div>
+      <div class="cf-group"><label>Subject</label><input type="text" id="cSubject" placeholder="Internship, project, collaboration..."/></div>
+      <div class="cf-group"><label>Message</label><textarea id="cMsg" placeholder="Tell me about the opportunity..."></textarea></div>
+      <button class="submit-btn" onclick="submitForm(this)">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">AB<span style="color:var(--accent)">.</span></div>
+  <div class="footer-copy">© 2025 Aizazullah Baloch · All rights reserved</div>
+  <div class="footer-right">
+    <a href="https://github.com/Muhammad-Aizazullah" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/muhammad-aizazullah-748931286/" target="_blank">LinkedIn</a>
+    <a href="mailto:muhammadaizazullah456@gmail.com">Email</a>
+  </div>
+</footer>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+/* ── EmailJS CONFIG ─────────────────────────────────────
+   1. Sign up free → https://www.emailjs.com
+   2. Add Gmail service → copy SERVICE_ID
+   3. Create template using: {{from_name}} {{from_email}} {{subject}} {{message}}
+   4. Replace the 3 placeholders below with your actual keys
+──────────────────────────────────────────────────────── */
+emailjs.init('YOUR_PUBLIC_KEY');
+
+/* CURSOR */
+const c=document.getElementById('cur'),c2=document.getElementById('cur2');
+let mx=0,my=0,rx=0,ry=0;
+if(window.matchMedia('(pointer:fine)').matches){
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px'});
+  (function lp(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;c2.style.left=rx+'px';c2.style.top=ry+'px';requestAnimationFrame(lp)})();
+}
+
+/* STARS */
+const cv=document.getElementById('stars'),ctx=cv.getContext('2d');
+let W,H,pts=[];
+function rsz(){
+  W=cv.width=innerWidth;H=cv.height=innerHeight;pts=[];
+  for(let i=0;i<100;i++)pts.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+.3,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,o:Math.random()*.5+.07});
+}
+window.addEventListener('resize',rsz);rsz();
+(function draw(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(108,92,231,${p.o})`;ctx.fill();});
+  requestAnimationFrame(draw);
+})();
+
+/* CARD ENTRANCE */
+function animateCards(){
+  document.querySelectorAll('.proj-card:not(.hidden)').forEach((card,i)=>{
+    card.style.transitionDelay=`${i*0.055}s`;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>card.classList.add('in')));
+  });
+}
+animateCards();
+
+/* FILTER */
+document.querySelectorAll('.ftab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.card-scene').forEach(scene=>{
+      const card=scene.querySelector('.proj-card');
+      card.classList.remove('in');card.style.transitionDelay='0s';
+      const show=f==='all'||card.dataset.cat.includes(f);
+      scene.style.display=show?'':'none';
+      show?card.classList.remove('hidden'):card.classList.add('hidden');
+    });
+    setTimeout(animateCards,60);
+  });
+});
+
+/* 3D TILT */
+document.querySelectorAll('.proj-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`perspective(800px) rotateY(${x*14}deg) rotateX(${-y*10}deg) translateZ(10px)`;
+    const shine=card.querySelector('.card-shine');
+    shine.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+    shine.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transition='transform .55s ease,box-shadow .4s,border-color .4s,background .4s';
+    card.style.transform='perspective(800px) rotateY(0) rotateX(0) translateZ(0)';
+  });
+  card.addEventListener('mouseenter',()=>{
+    card.style.transition='box-shadow .4s,border-color .4s,background .4s';
+  });
+});
+
+/* FORM SUBMIT */
+function submitForm(btn){
+  const name=document.getElementById('cName').value.trim();
+  const email=document.getElementById('cEmail').value.trim();
+  const subject=document.getElementById('cSubject').value.trim()||'Portfolio Contact';
+  const message=document.getElementById('cMsg').value.trim();
+  if(!name||!email||!message){alert('Please fill in Name, Email, and Message.');return;}
+  btn.textContent='Sending...';btn.disabled=true;
+  emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{
+    from_name:name,from_email:email,subject:subject,message:message,
+    to_email:'muhammadaizazullah456@gmail.com'
+  }).then(()=>{
+    btn.textContent='✓ Message Sent!';
+    btn.style.background='linear-gradient(135deg,#00b894,#00cec9)';
+    ['cName','cEmail','cSubject','cMsg'].forEach(id=>document.getElementById(id).value='');
+    setTimeout(()=>{btn.textContent='Send Message →';btn.disabled=false;btn.style.background=''},3500);
+  }).catch(()=>{
+    btn.disabled=false;
+    window.location.href='mailto:muhammadaizazullah456@gmail.com'
+      +'?subject='+encodeURIComponent(subject)
+      +'&body='+encodeURIComponent('From: '+name+' ('+email+')\n\n'+message);
+    setTimeout(()=>{btn.textContent='Send Message →';btn.style.background=''},300);
+  });
+}
+</script>
+</body>
+</html>
